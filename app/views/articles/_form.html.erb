@@ -1,4 +1,4 @@
-<%= form_for @article do |f| %>
+<%= form_for @article, html: { multipart: true } do |f| %>
 
   <% if @article.errors.any? %>
     <div id="error_explanation">
@@ -13,7 +13,10 @@
       </ul>
     </div>
   <% end %>
-
+  <p>
+    <%= image_tag(@article.image_uid.full.url) if @article.image_uid? %>
+    <%= f.file_field :image_uid %>
+  </p>
   <p>
     <%= f.label :title %><br>
     <%= f.text_field :title %>

@@ -1,5 +1,8 @@
 <h1>New article</h1>
 <p>
+  <%= image_tag(@article.image_uid.full.url) if @article.image_uid? %>
+</p>
+<p>
   <strong>Id:</strong>
   <%= @article.id%>
 </p>
