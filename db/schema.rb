@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224151131) do
+ActiveRecord::Schema.define(version: 20170302174720) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -18,6 +18,17 @@ ActiveRecord::Schema.define(version: 20170224151131) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "image_uid"
+  end
+
+  create_table "comment_votes", force: :cascade do |t|
+    t.string   "user_ip"
+    t.integer  "comment_id"
+    t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_comment_votes_on_comment_id"
+    t.index ["user_ip", "comment_id"], name: "index_comment_votes_on_user_ip_and_comment_id", unique: true
+    t.index ["user_ip"], name: "index_comment_votes_on_user_ip"
   end
 
   create_table "comments", force: :cascade do |t|
