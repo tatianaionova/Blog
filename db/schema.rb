@@ -10,25 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302174720) do
+ActiveRecord::Schema.define(version: 20170304122030) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "image_uid"
-  end
-
-  create_table "comment_votes", force: :cascade do |t|
-    t.string   "user_ip"
-    t.integer  "comment_id"
-    t.integer  "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_comment_votes_on_comment_id"
-    t.index ["user_ip", "comment_id"], name: "index_comment_votes_on_user_ip_and_comment_id", unique: true
-    t.index ["user_ip"], name: "index_comment_votes_on_user_ip"
+    t.integer  "user_blog_id"
+    t.index ["user_blog_id"], name: "index_articles_on_user_blog_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -38,6 +29,12 @@ ActiveRecord::Schema.define(version: 20170302174720) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["article_id"], name: "index_comments_on_article_id"
+  end
+
+  create_table "user_blogs", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
