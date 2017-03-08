@@ -1,0 +1,14 @@
+<h1>Blog</h1>
+<p>
+  <strong>Id:</strong>
+  <%= @user_blog.id%>
+</p>
+<p>
+  <strong>Title:</strong>
+  <%= @user_blog.title %>
+</p>
+<h1>Listing articles</h1>
+<%= render @user_blog.articles%>
+<%= new_article(@user_blog) %><br>
+<%= edit_blog(@user_blog) %> |
+<%= back_to_blogs %>

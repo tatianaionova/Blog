@@ -1,0 +1,18 @@
+<%= form_for([@user_blog, @user_blog.articles.build]) do |f| %>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Text</th>
+  </tr>
+    <tr>
+      <td><%= image_tag(article.image_uid.thumb.url) if article.image_uid? %></td>
+      <td><%= article.id %></td>
+      <td><%= article.title %></td>
+      <td><%= article.text %></td>
+      <td><%= show_article(@user_blog, article.id) %></td>
+      <td><%= edit_article(@user_blog, article.id) %></td>
+      <td><%= destroy_article(@user_blog, article.id) %></td>
+    </tr>
+</table>
+<% end %>
