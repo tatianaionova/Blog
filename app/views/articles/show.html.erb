@@ -1,4 +1,5 @@
-<h1>New article</h1>
+<h1>Article</h1>
+<%= form_for([@user_blog, @user_blog.articles.build]) do |f| %>
 <p>
   <%= image_tag(@article.image_uid.full.url) if @article.image_uid? %>
 </p>
@@ -16,8 +17,9 @@
   <%= @article.text %>
 </p>
 <h2>Comments</h2>
-<%= render @article.comments %>
-<h2>Add a comment:</h2>
-<%= render 'comments/form' %>
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+<% for comment in @article.comments %>
+		<li><%=comment.body %></li><br>
+	<% end %>
+<%= edit_article(@user_blog, @article)%>
+<%= to_blog('Back', @user_blog) %>
+<% end %>
