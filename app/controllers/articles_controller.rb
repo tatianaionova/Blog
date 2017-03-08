@@ -1,24 +1,25 @@
 class ArticlesController < ApplicationController
 
-  def index
-    @articles = Article.all
-  end
-
   def show
-    @article = Article.find(params[:id])
+    @user_blog = find_blog
+    @article = @user_blog.articles.find(find_params[:id])
   end
 
   def new
-    @article = Article.new
+    @user_blog = find_blog
+    @article = @user_blog.articles.new
+    1.times { @article.comments.build }
   end
 
   def edit
-    @article = Article.find(params[:id])
+    @user_blog = find_blog
+    @article = @user_blog.articles.find(find_params[:id])
+    1.times { @article.comments.build }
   end
 
   def create
-    @user_blog = UserBlog.find(params[:user_blog_id])
-    @article = @user_blog.articles.create(article_params)
+    @user_blog = find_blog
+    @article = @user_blog.articles.new(article_params)
     if @article.save
       redirect_to @user_blog, notice: "Article has been succesfully created"
     else
@@ -27,8 +28,8 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @user_blog = UserBlog.find(params[:user_blog_id])
-    @article = @user_blog.articles.update(article_params)
+    @user_blog = find_blog
+    @article = @user_blog.articles.find(find_params[:id])
   if @article.update(article_params)
     redirect_to @user_blog, notice: "Article has been succesfully updated"
   else
@@ -37,15 +38,23 @@ class ArticlesController < ApplicationController
 end
 
 def destroy
-  @user_blog = UserBlog.find(params[:user_blog_id])
-  @article = user_blog.articles.create(article_params)
+  @user_blog = find_blog
+  @article = @user_blog.articles.find(find_params[:id])
   @article.destroy
 
-  redirect_to articles_path
+  redirect_to @user_blog, notice: "Article has been succesfully deleted"
 end
 
 private
   def article_params
-    params.require(:article).permit(:title, :text, :image_uid, :user_blog_id)
+    params.require(:article).permit(:title, :text, :image_uid, :user_blog_id, comments_attributes: [:commenter, :body])
+  end
+
+  def find_blog
+    UserBlog.find(params[:user_blog_id])
+  end
+
+  def find_params
+    params.permit(:user_blog_id, :id)
   end
 end
