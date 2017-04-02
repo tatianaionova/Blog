@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-
+ before_filter :authenticate_user!, except: [:index, :show]
   def show
     @user_blog = find_blog
     @article = @user_blog.articles.find(find_params[:id])

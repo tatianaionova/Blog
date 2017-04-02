@@ -1,0 +1,20 @@
+h1 BLOGS
+br
+  = render "shared/user_session"
+  br
+  = link_to_new_blog
+  table
+    tr
+      th Id
+      th Title
+      th Created at
+
+  - @user_blogs.each do |user_blog|
+    tr
+      td =' user_blog.id
+      td =' user_blog.title
+      td =' user_blog.created_at
+      td =' link_to_blog('Show', user_blog)
+      td =' link_to_new_article(user_blog)
+      td =' link_to_destroy_blog(user_blog)
+    br
