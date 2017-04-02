@@ -1,0 +1,20 @@
+h1 Article
+= form_for([@user_blog, @user_blog.articles.build]) do |f|
+  p
+  - if @article.image_uid?
+    = image_tag(@article.image_uid.full.url)
+  p
+    strong Id:
+    = @article.id
+  p
+    strong Title:
+    = @article.title
+  p
+    strong Text:
+    = @article.text
+h3 Comments
+- for comment in @article.comments
+	li = comment.body
+    br
+=' link_to_edit_article(@user_blog, @article)
+= link_to_blog('Back', @user_blog)

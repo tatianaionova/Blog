@@ -1,0 +1,16 @@
+h1 Blog
+br
+= render "shared/user_session"
+br
+p
+  strong Id:
+  =' @user_blog.id
+p
+  strong Title:
+  =' @user_blog.title
+h2 Listing articles
+= render @user_blog.articles
+= link_to_new_article(@user_blog)
+br
+=' link_to_edit_blog(@user_blog)
+=' link_to_back_to_blogs

@@ -1,0 +1,35 @@
+= form_for([@user_blog, @article]) do |f|
+  - if @article.errors.any?
+    div id="error_explanation"
+      h2
+        = pluralize(@article.errors.count, "error")
+        prohibited this article from being saved:
+      ul
+        - @article.errors.full_messages.each do |msg|
+          li
+          = msg
+  p
+    - if @article.image_uid?
+      = image_tag(@article.image_uid.full.url)
+    = f.file_field :image_uid
+  p
+    = f.label :title
+    br
+    = f.text_field :title
+  p
+    = f.label :text
+    br
+    = f.text_area :text
+    h2 Comments
+    = f.fields_for :comments do |comm_form|
+      p
+        = comm_form.label :commenter
+        br
+        = comm_form.text_field :commenter
+      p
+        = comm_form.label :body
+        br
+        = comm_form.text_area :body
+      p
+        = f.submit
+    = link_to_blog('Back', @user_blog)
